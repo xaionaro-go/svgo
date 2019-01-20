@@ -296,8 +296,8 @@ func (svg *SVG) MaskEnd() { svg.println(`</mask>`) }
 
 // Circle centered at x,y, with radius r, with optional style.
 // Standard Reference: http://www.w3.org/TR/SVG11/shapes.html#CircleElement
-func (svg *SVG) Circle(x int, y int, r int, s ...string) {
-	svg.printf(`<circle cx="%d" cy="%d" r="%d" %s`, x, y, r, endstyle(s, emptyclose))
+func (svg *SVG) Circle(x, y, r float64, s ...string) {
+	svg.printf(`<circle cx="%f" cy="%f" r="%f" %s`, x, y, r, endstyle(s, emptyclose))
 }
 
 // Ellipse centered at x,y, centered at x,y with radii w, and h, with optional style.
@@ -385,8 +385,8 @@ func (svg *SVG) Qbezier(sx int, sy int, cx int, cy int, ex int, ey int, tx int, 
 
 // Line draws a straight line between two points, with optional style.
 // Standard Reference: http://www.w3.org/TR/SVG11/shapes.html#LineElement
-func (svg *SVG) Line(x1 int, y1 int, x2 int, y2 int, s ...string) {
-	svg.printf(`<line x1="%d" y1="%d" x2="%d" y2="%d" %s`, x1, y1, x2, y2, endstyle(s, emptyclose))
+func (svg *SVG) Line(x1, y1, x2, y2 float64, s ...string) {
+	svg.printf(`<line x1="%f" y1="%f" x2="%f" y2="%f" %s`, x1, y1, x2, y2, endstyle(s, emptyclose))
 }
 
 // Polyline draws connected lines between coordinates, with optional style.
@@ -816,16 +816,16 @@ func (svg *SVG) Sepia() {
 // Utility
 
 // Grid draws a grid at the specified coordinate, dimensions, and spacing, with optional style.
-func (svg *SVG) Grid(x int, y int, w int, h int, n int, s ...string) {
+func (svg *SVG) Grid(x, y, w, h float64, n int, s ...string) {
 
 	if len(s) > 0 {
 		svg.Gstyle(s[0])
 	}
-	for ix := x; ix <= x+w; ix += n {
+	for ix := x; ix <= x+w; ix += float64(n) {
 		svg.Line(ix, y, ix, y+h)
 	}
 
-	for iy := y; iy <= y+h; iy += n {
+	for iy := y; iy <= y+h; iy += float64(n) {
 		svg.Line(x, iy, x+w, iy)
 	}
 	if len(s) > 0 {
