@@ -315,12 +315,12 @@ func (svg *SVG) Polygon(x []int, y []int, s ...string) {
 
 // Rect draws a rectangle with upper left-hand corner at x,y, with width w, and height h, with optional style
 // Standard Reference: http://www.w3.org/TR/SVG11/shapes.html#RectElement
-func (svg *SVG) Rect(x int, y int, w int, h int, s ...string) {
-	svg.printf(`<rect %s %s`, dim(x, y, w, h), endstyle(s, emptyclose))
+func (svg *SVG) Rect(x, y, w, h float64, s ...string) {
+	svg.printf(`<rect %s %s`, dimFloat64(x, y, w, h), endstyle(s, emptyclose))
 }
 
 // CenterRect draws a rectangle with its center at x,y, with width w, and height h, with optional style
-func (svg *SVG) CenterRect(x int, y int, w int, h int, s ...string) {
+func (svg *SVG) CenterRect(x, y, w, h float64, s ...string) {
 	svg.Rect(x-(w/2), y-(h/2), w, h, s...)
 }
 
@@ -334,7 +334,7 @@ func (svg *SVG) Roundrect(x int, y int, w int, h int, rx int, ry int, s ...strin
 }
 
 // Square draws a square with upper left corner at x,y with sides of length l, with optional style.
-func (svg *SVG) Square(x int, y int, l int, s ...string) {
+func (svg *SVG) Square(x, y, l float64, s ...string) {
 	svg.Rect(x, y, l, l, s...)
 }
 
@@ -947,6 +947,11 @@ func href(s string) string { return fmt.Sprintf(`xlink:href="%s"`, s) }
 // dim returns the dimension string (x, y coordinates and width, height)
 func dim(x int, y int, w int, h int) string {
 	return fmt.Sprintf(`x="%d" y="%d" width="%d" height="%d"`, x, y, w, h)
+}
+
+// dim returns the dimension string (x, y coordinates and width, height)
+func dimFloat64(x, y, w, h float64) string {
+	return fmt.Sprintf(`x="%f" y="%f" width="%f" height="%f"`, x, y, w, h)
 }
 
 // fsattr returns the XML attribute representation of a filterspec, ignoring empty attributes
