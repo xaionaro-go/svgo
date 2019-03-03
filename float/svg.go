@@ -457,12 +457,12 @@ func (svg *SVG) Textlines(x, y float64, s []string, size, spacing float64, fill,
 // RGB specifies a fill color in terms of a (r)ed, (g)reen, (b)lue triple.
 // Standard reference: http://www.w3.org/TR/css3-color/
 func (svg *SVG) RGB(r int, g int, b int) string {
-	return fmt.Sprintf(`fill:rgb(%d,%d,%d)`, r, g, b)
+	return fmt.Sprintf(`rgb(%d,%d,%d)`, r, g, b)
 }
 
 // RGBA specifies a fill color in terms of a (r)ed, (g)reen, (b)lue triple and opacity.
 func (svg *SVG) RGBA(r int, g int, b int, a float64) string {
-	return fmt.Sprintf(`fill-opacity:%.2f; %s`, a, svg.RGB(r, g, b))
+	return fmt.Sprintf(`%s; fill-opacity:%.2f`, svg.RGB(r, g, b), a)
 }
 
 // Gradients
